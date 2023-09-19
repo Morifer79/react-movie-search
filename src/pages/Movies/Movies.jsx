@@ -3,6 +3,7 @@ import {Loader} from 'components/Loader/Loader';
 import {fetchSearchMovie} from 'services/api';
 import MoviesList from 'components/MoviesList/MoviesList';
 import SearchForm from 'components/SearchForm/SearchForm';
+import {Quotation} from 'pages/Home/Home.styled';
 
 //import { useSearchParam, useLocation } from 'react-router-dom';
 //import { toast } from 'react-toastify';
@@ -60,9 +61,17 @@ const Movies = () => {
   return (
     <>
       <SearchForm onQueryChange={onQueryChange} />
+      <Quotation>
+        <strong>
+          Life
+          <br /> - is a series of choices.
+        </strong>
+        <br />
+        <span>Michelle Nostradamus</span>
+      </Quotation>
       {isLoading && <Loader />}
       {isError && <p>{isError}</p>}
-      {!isLoading && movies.length > 0 && <MoviesList movieItems={movies} />}
+      {!isLoading && movies.length > 0 && <MoviesList movies={movies} />}
     </>
   );
 };

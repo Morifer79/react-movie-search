@@ -25,7 +25,7 @@ const MovieDetails = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
+  const [isError, setIsError] = useState(null);
   const abortCtrl = useRef();
   const location = useLocation();
   const goBack = useRef(location?.state?.from ?? '/');
@@ -55,65 +55,69 @@ const MovieDetails = () => {
     };
     getDetail();
   }, [movieId]);
-
-  const { genres, title, release_date, overview, vote_average, poster_path } =
-    movie || {};
-  //const imageSrc = poster_path ? IMAGE_URL + poster_path : image;
-  //const userScore = Math.round((Number(vote_average) * 100) / 10);
-  const moviesGenres = genres.map(genre => genre.name).join(' ');
-  //const releaseDate = release_date.slice(0, 4);
   const IMAGE_URL = 'https://image.tmdb.org/t/p/w500/';
+  const { title, release_date, overview, vote_average, poster_path } =
+    movie || {};
+  const imageSrc = poster_path ? IMAGE_URL + poster_path : image;
+  const userScore = Math.round((Number(vote_average) * 100) / 10);
+	
+  //const moviesGenres = movie.genres.map(genre => genre.name).join(' ');
+  //const releaseDate = release_date.slice(0, 4);
+
   return (
-    <PageWrapper>
+    <>
       {isLoading && <Loader />}
-      {isError && <p>Movie not found.</p>}
-      <ReturnBtn to={goBack}>
-        <BsCaretLeftFill />
-        Go Back
-      </ReturnBtn>
-      <Card>
-        <Thumb>
-          <img
-            src={`${poster_path ? IMAGE_URL + poster_path : image}`}
-            alt={title}
-          />
-        </Thumb>
-        <Info>
-          <Title>
-            {title} {release_date?.split('-')[0] || ''}
-          </Title>
-          <InfoList>
-            <Item>
-              <p>
-                User Score: {Math.round((Number(vote_average) * 100) / 10)}%
-              </p>
-            </Item>
-            <Item>
-              <h3>Overview</h3>
-              <p>{overview}</p>
-            </Item>
-            <Item>
-              <h3>Genres</h3>
-              <p>{moviesGenres}</p>
-            </Item>
-          </InfoList>
-        </Info>
-      </Card>
-      <SubInfoWrapper>
-        <SubInfoTitle> Additional information</SubInfoTitle>
-        <SubInfoList>
-          <SubInfoLink to="cast" state={{ ...location.state }}>
-            <IconMasks /> Cast
-          </SubInfoLink>
-          <SubInfoLink to="reviews" state={{ ...location.state }}>
-            <IconScroll /> Reviews
-          </SubInfoLink>
-        </SubInfoList>
-      </SubInfoWrapper>
-      <Suspense>
-        <Outlet />
-      </Suspense>
-    </PageWrapper>
+      {isError && <p>{isError}</p>}
+      <PageWrapper>
+        {!isLoading && movie && (
+          <>
+            <ReturnBtn to={goBack.current}>
+              <BsCaretLeftFill />
+              Go Back
+            </ReturnBtn>
+            <Card>
+              <Thumb>
+                <img src={`${imageSrc}`} alt={title} />
+              </Thumb>
+              <Info>
+                <Title>
+                  {title} ({release_date.slice(0, 4)})
+                </Title>
+                <InfoList>
+                  <Item>
+                    <p>
+                      User Score: <span>{userScore}%</span>
+                    </p>
+                  </Item>
+                  <Item>
+                    <h3>Overview</h3>
+                    <p>{overview}</p>
+                  </Item>
+                  <Item>
+                    <h3>Genres</h3>
+                    <p>{movie.genres.map(genre => genre.name).join(' ')}</p>
+                  </Item>
+                </InfoList>
+              </Info>
+            </Card>
+            <SubInfoWrapper>
+              <SubInfoTitle> Additional information</SubInfoTitle>
+              <SubInfoList>
+                <SubInfoLink to="cast" state={{ ...location.state }}>
+                  <IconMasks /> Cast
+                </SubInfoLink>
+                <SubInfoLink to="reviews" state={{ ...location.state }}>
+                  <IconScroll /> Reviews
+                </SubInfoLink>
+              </SubInfoList>
+            </SubInfoWrapper>
+          </>
+        )}
+        <Suspense>
+          <Outlet />
+        </Suspense>
+      </PageWrapper>
+    </>
   );
 };
 

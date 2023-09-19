@@ -54,18 +54,70 @@ export const Info = styled.div`
 `;
 
 export const Title = styled.h2`
-  color: ${p => p.theme.colors.bernred};
-  margin-bottom: ${p => p.theme.spacing(5)};
+  margin-bottom: ${p => p.theme.spacing(8)};
+  font-family: 'Bad Script';
+	font-size: 28px;
+  --interval: 5000ms;
+  display: block;
+  text-shadow: 0 0 10px var(--color1), 0 0 20px var(--color2),
+    0 0 40px var(--color3), 0 0 80px var(--color4);
+  will-change: filter, color;
+  filter: saturate(60%);
+  animation: flicker steps(100) var(--interval) 1s infinite;
+  color: lightpink;
+  --color1: pink;
+  --color2: orangered;
+  --color3: red;
+  --color4: magenta;
+  @keyframes flicker {
+    50% {
+      color: ${p => p.theme.colors.white};
+      filter: saturate(200%) hue-rotate(20deg);
+    }
+  }
 `;
 
 export const InfoList = styled.ul`
   h3 {
-    color: ${p => p.theme.colors.bernred};
-    margin-bottom: ${p => p.theme.spacing(3)};
+    margin-bottom: ${p => p.theme.spacing(8)};
+    font-family: 'Bad Script';
+    font-size: 22px;
+    --interval: 5000ms;
+    display: block;
+    text-shadow: 0 0 10px var(--color1), 0 0 20px var(--color2),
+      0 0 40px var(--color3), 0 0 80px var(--color4);
+    will-change: filter, color;
+    filter: saturate(60%);
+    animation: flicker steps(100) var(--interval) 1s infinite;
+    color: lightpink;
+    --color1: pink;
+    --color2: orangered;
+    --color3: red;
+    --color4: magenta;
+    @keyframes flicker {
+      50% {
+        color: ${p => p.theme.colors.white};
+        filter: saturate(200%) hue-rotate(20deg);
+      }
+    }
   }
 `;
 
 export const Item = styled.li`
+  p span {
+		font-weight: 900;
+    vertical-align: middle;
+    padding: 0 5px;
+    margin-left: ${p => p.theme.spacing(5)};
+    color: ${p => p.theme.colors.white};
+    width: 50px;
+    height: 20px;
+    border-radius: ${p => p.theme.radii.md};
+    background-color: ${p => p.theme.colors.black};
+    /*display: flex;*/
+    /*justify-content: center;*/
+    box-shadow: 0 0 20px 2px ${p => p.theme.colors.bernred};
+  }
   &:not(:last-child) {
     margin-bottom: ${p => p.theme.spacing(10)};
   }

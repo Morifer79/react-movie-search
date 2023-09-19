@@ -20,11 +20,10 @@ export const Header = styled.header`
   box-shadow: 0 0 13px 3px ${p => p.theme.colors.bernred};
 `;
 
-export const Nav = styled(NavLink)`
-  ul {
-    display: flex;
-    gap: ${p => p.theme.spacing(8)};
-  }
+export const BtnList = styled.ul`
+  display: flex;
+  align-items: center;
+  column-gap: ${p => p.theme.spacing(8)};
 `;
 
 export const StyledLink = styled(NavLink)`
@@ -48,13 +47,15 @@ export const StyledLink = styled(NavLink)`
 `;
 
 export const IconHome = styled(IoHomeSharp)`
-	vertical-align: sub;
+  vertical-align: sub;
+  margin-right: ${p => p.theme.spacing(3)};
   width: 20px;
   height: 20px;
 `;
 
 export const IconMovie = styled(ImFilm)`
   vertical-align: sub;
+  margin-right: ${p => p.theme.spacing(3)};
   width: 20px;
   height: 20px;
 `;

@@ -24,7 +24,7 @@ export const fetchHomePage = async signal => {
 };
 
 export const fetchSearchMovie = async (query, signal) => {
-  const { data } = await axios.get('search/movie', {
+  const response = await axios.get('search/movie', {
     signal,
     params: {
       api_key: API_KEY,
@@ -34,7 +34,7 @@ export const fetchSearchMovie = async (query, signal) => {
       page: 1,
     },
   });
-  return data.results;
+  return response.data.results;
 };
 
 export const fetchSearchDetail = async (movieId, signal) => {

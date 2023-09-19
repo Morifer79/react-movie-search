@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { fetchSearchCast } from 'services/api';
 import { CastItem, CastList, CastWrapper } from './Cast.styled';
 import { Loader } from 'components/Loader/Loader';
+import { animateScroll } from 'react-scroll';
 //import { toast } from 'react-toastify';
 import person from '../../images/person.jpg';
 
@@ -40,9 +41,9 @@ const Cast = () => {
     getCast();
   }, [movieId]);
 
-  //if (!cast) {
-  //  return;
-  //}
+  if (cast) {
+    animateScroll.scrollMore(620);
+  }
 
   return (
     <>

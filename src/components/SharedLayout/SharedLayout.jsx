@@ -1,11 +1,11 @@
 import { Loader } from 'components/Loader/Loader';
 import { Suspense } from 'react';
-import { Outlet } from 'react-router-dom';
+import {Outlet} from 'react-router-dom';
 import {
+	BtnList,
   Header,
   IconHome,
   IconMovie,
-  Nav,
   StyledLink,
   Wrapper,
 } from 'components/SharedLayout/SharedLayout.styled';
@@ -14,11 +14,11 @@ const SharedLayout = () => {
   return (
     <Wrapper>
       <Header>
-        <Nav>
-          <ul>
+        <nav>
+          <BtnList>
             <li>
               <StyledLink to="/">
-                <IconHome /> <span>Home</span>
+                <IconHome />Home
               </StyledLink>
             </li>
             <li>
@@ -26,8 +26,8 @@ const SharedLayout = () => {
                 <IconMovie /> Movies
               </StyledLink>
             </li>
-          </ul>
-        </Nav>
+          </BtnList>
+        </nav>
       </Header>
       <Suspense fallback={<Loader />}>
         <Outlet />
