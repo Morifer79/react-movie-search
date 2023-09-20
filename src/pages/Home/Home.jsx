@@ -3,7 +3,6 @@ import { fetchHomePage } from '../../services/api';
 import MoviesList from 'components/MoviesList/MoviesList';
 import { Quotation, PulsarTitle } from './Home.styled';
 import { Loader } from 'components/Loader/Loader';
-//import { toast } from 'react-toastify';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
@@ -21,8 +20,8 @@ const Home = () => {
       try {
         setIsLoading(true);
         setIsError(null);
-        const results = await fetchHomePage(abortCtrl.current.signal);
-        setMovies(results);
+        const trendInfo = await fetchHomePage(abortCtrl.current.signal);
+        setMovies(trendInfo);
       } catch (error) {
         if (error.code !== 'ERR_CANCELED') {
           setIsError(error.message);

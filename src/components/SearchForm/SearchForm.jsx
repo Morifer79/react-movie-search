@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
-import {useSearchParams} from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { Formik, ErrorMessage } from 'formik';
-//import { toast } from 'react-toastify';
 import {
   IconSearch,
   SearchBtn,
@@ -9,11 +8,11 @@ import {
   SearchBar,
 } from './SearchForm.styled';
 
-const SearchForm = ({onQueryChange}) => {
-	const [searchParams, setSearchParams] = useSearchParams();
-	const movieName = searchParams.get('query') ?? '';
+const SearchForm = ({ onQueryChange }) => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const movieName = searchParams.get('query') ?? '';
 
-	useEffect(() => {
+  useEffect(() => {
     if (!movieName) return;
     onQueryChange(movieName);
   }, [movieName, onQueryChange]);
@@ -26,7 +25,7 @@ const SearchForm = ({onQueryChange}) => {
     action.resetForm();
   };
 
-	return (
+  return (
     <Formik initialValues={{ query: '' }} onSubmit={handleSubmit}>
       <SearchBar>
         <SearchFormInput

@@ -3,7 +3,7 @@ import { Outlet, useParams, useLocation } from 'react-router-dom';
 import { fetchSearchDetail } from '../../services/api';
 import { Loader } from 'components/Loader/Loader';
 import { BsCaretLeftFill } from 'react-icons/bs';
-import image from '../../images/image.png';
+import default_image from '../../images/default_image.png';
 import {
   Card,
   IconMasks,
@@ -36,14 +36,15 @@ const MovieDetails = () => {
         abortCtrl.current.abort();
       }
       abortCtrl.current = new AbortController();
+
       try {
         setIsLoading(true);
         setIsError(null);
-        const movieDetails = await fetchSearchDetail(
+        const detailsInfo = await fetchSearchDetail(
           movieId,
           abortCtrl.current.signal
         );
-        setMovie(movieDetails);
+        setMovie(detailsInfo);
         setIsError(null);
       } catch (error) {
         if (error.code !== 'ERR_CANCELED') {
@@ -55,14 +56,12 @@ const MovieDetails = () => {
     };
     getDetail();
   }, [movieId]);
+
   const IMAGE_URL = 'https://image.tmdb.org/t/p/w500/';
   const { title, release_date, overview, vote_average, poster_path } =
     movie || {};
-  const imageSrc = poster_path ? IMAGE_URL + poster_path : image;
+  const imageSrc = poster_path ? IMAGE_URL + poster_path : default_image;
   const userScore = Math.round((Number(vote_average) * 100) / 10);
-	
-  //const moviesGenres = movie.genres.map(genre => genre.name).join(' ');
-  //const releaseDate = release_date.slice(0, 4);
 
   return (
     <>

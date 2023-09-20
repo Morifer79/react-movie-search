@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link, NavLink } from 'react-router-dom';
-import {BsCameraReels} from 'react-icons/bs';
+import { BsCameraReels } from 'react-icons/bs';
 import { FaMasksTheater, FaScroll } from 'react-icons/fa6';
 
 export const PageWrapper = styled.section`
@@ -20,13 +20,12 @@ export const ReturnBtn = styled(NavLink)`
   border: transparent;
   border-radius: ${p => p.theme.radii.md};
   font-weight: 600;
-  text-decoration: none;
   box-shadow: 0 0 13px 3px ${p => p.theme.colors.bernred};
-  transition: color 300ms linear, 300ms linear;
+  transition: color 300ms linear, box-shadow 300ms linear;
 
   &:hover,
   &:focus {
-		color: ${p => p.theme.colors.bernred};
+    color: ${p => p.theme.colors.bernred};
     box-shadow: 0 0 13px 7px ${p => p.theme.colors.bernred};
   }
 `;
@@ -55,20 +54,23 @@ export const Info = styled.div`
 
 export const Title = styled.h2`
   margin-bottom: ${p => p.theme.spacing(8)};
+
   font-family: 'Bad Script';
-	font-size: 28px;
+  font-size: 28px;
   --interval: 5000ms;
   display: block;
   text-shadow: 0 0 10px var(--color1), 0 0 20px var(--color2),
     0 0 40px var(--color3), 0 0 80px var(--color4);
   will-change: filter, color;
   filter: saturate(60%);
-  animation: flicker steps(100) var(--interval) 1s infinite;
+
+  animation: flicker steps(100) var(--interval) 1000ms infinite;
   color: lightpink;
   --color1: pink;
   --color2: orangered;
   --color3: red;
   --color4: magenta;
+
   @keyframes flicker {
     50% {
       color: ${p => p.theme.colors.white};
@@ -80,6 +82,7 @@ export const Title = styled.h2`
 export const InfoList = styled.ul`
   h3 {
     margin-bottom: ${p => p.theme.spacing(8)};
+
     font-family: 'Bad Script';
     font-size: 22px;
     --interval: 5000ms;
@@ -88,12 +91,14 @@ export const InfoList = styled.ul`
       0 0 40px var(--color3), 0 0 80px var(--color4);
     will-change: filter, color;
     filter: saturate(60%);
+
     animation: flicker steps(100) var(--interval) 1s infinite;
     color: lightpink;
     --color1: pink;
     --color2: orangered;
     --color3: red;
     --color4: magenta;
+
     @keyframes flicker {
       50% {
         color: ${p => p.theme.colors.white};
@@ -105,19 +110,19 @@ export const InfoList = styled.ul`
 
 export const Item = styled.li`
   p span {
-		font-weight: 900;
-    vertical-align: middle;
     padding: 0 5px;
     margin-left: ${p => p.theme.spacing(5)};
+
+    font-weight: 900;
+    vertical-align: middle;
     color: ${p => p.theme.colors.white};
     width: 50px;
     height: 20px;
     border-radius: ${p => p.theme.radii.md};
     background-color: ${p => p.theme.colors.black};
-    /*display: flex;*/
-    /*justify-content: center;*/
     box-shadow: 0 0 20px 2px ${p => p.theme.colors.bernred};
   }
+
   &:not(:last-child) {
     margin-bottom: ${p => p.theme.spacing(10)};
   }
@@ -144,6 +149,7 @@ export const SubInfoList = styled.ul`
 
 export const SubInfoLink = styled(Link)`
   padding: 8px 5px;
+
   text-align: center;
   border: solid 1px ${p => p.theme.colors.bernred};
   border-radius: ${p => p.theme.radii.md};

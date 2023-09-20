@@ -5,14 +5,14 @@ export const Loader = () => {
     <ThreeCircles
       height="300"
       width="300"
-      color="#4fa94d"
+      color="#e50914"
       wrapperStyle={{ position: 'fixed', top: '30%', left: '40%' }}
       wrapperClass=""
       visible={true}
       ariaLabel="three-circles-rotating"
-      outerCircleColor="#FF0000"
-      innerCircleColor="#FFFF00"
-      middleCircleColor="#008000"
+      outerCircleColor="#e50914"
+      innerCircleColor="#ffffff"
+      middleCircleColor="#e50914"
     />
   );
 };

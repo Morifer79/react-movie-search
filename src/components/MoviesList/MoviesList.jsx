@@ -3,23 +3,22 @@ import { MovieList, MovieItem, MovieLink } from './MoviesList.styled';
 import { CameraReels } from 'pages/MovieDetails/MovieDetails.styled';
 
 const MoviesList = ({ movies }) => {
-	const location = useLocation();
-	const chooseURL = id => {
-    return location.pathname === '/movies' ? `${id}` : `movies/${id}`;
-	};
+  const location = useLocation();
+  const selectedURL = id =>
+    location.pathname === '/movies' ? `${id}` : `movies/${id}`;
 
   return (
     <MovieList>
-			{movies.map(({id, title, name}) => {
-				return (
-					<MovieItem key={id}>
-						<MovieLink to={chooseURL(id)} state={{from: location}}>
-							<CameraReels />
-							{title || name}
-						</MovieLink>
-					</MovieItem>
-				);
-			})}
+      {movies.map(({ id, title, name }) => {
+        return (
+          <MovieItem key={id}>
+            <MovieLink to={selectedURL(id)} state={{ from: location }}>
+              <CameraReels />
+              {title || name}
+            </MovieLink>
+          </MovieItem>
+        );
+      })}
     </MovieList>
   );
 };

@@ -29,7 +29,6 @@ export const BtnList = styled.ul`
 export const StyledLink = styled(NavLink)`
   max-width: 60px;
   font-weight: 600;
-  text-decoration: none;
   color: ${p => p.theme.colors.white};
   padding: 8px 16px;
   border-radius: ${p => p.theme.radii.sm};

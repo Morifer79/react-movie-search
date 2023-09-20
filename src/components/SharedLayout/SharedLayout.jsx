@@ -1,8 +1,8 @@
 import { Loader } from 'components/Loader/Loader';
 import { Suspense } from 'react';
-import {Outlet} from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import {
-	BtnList,
+  BtnList,
   Header,
   IconHome,
   IconMovie,
@@ -18,7 +18,8 @@ const SharedLayout = () => {
           <BtnList>
             <li>
               <StyledLink to="/">
-                <IconHome />Home
+                <IconHome />
+                Home
               </StyledLink>
             </li>
             <li>

@@ -10,19 +10,29 @@ export const CastList = styled.ul`
   gap: ${p => p.theme.spacing(10)};
 `;
 
+export const WikiLink = styled.a`
+  //для перехода на Википедию и отсутствия конфликта
+`;
+
 export const CastItem = styled.li`
   width: 200px;
   overflow: hidden;
 
-  img {
-    height: 300px;
-    border: 3px dotted ${p => p.theme.colors.bernred};
-    border-top-left-radius: ${p => p.theme.radii.lg};
-    border-bottom-right-radius: ${p => p.theme.radii.lg};
-    transition: border 300ms linear, box-shadow 300ms linear;
+  p:not(:last-child) {
+    margin-top: ${p => p.theme.spacing(2.5)};
+    margin-bottom: ${p => p.theme.spacing(2.5)};
   }
 
-  p:not(:last-child) {
-		margin: 5px 0;
+  &:hover img {
+    filter: grayscale(1);
+    transition: 300ms ease-in-out;
   }
+`;
+
+export const ActorsImg = styled.img`
+  height: 300px;
+  border: 3px dotted ${p => p.theme.colors.bernred};
+  border-top-left-radius: ${p => p.theme.radii.lg};
+  border-bottom-right-radius: ${p => p.theme.radii.lg};
+  filter: grayscale(0);
 `;

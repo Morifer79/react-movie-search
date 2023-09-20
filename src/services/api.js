@@ -3,14 +3,6 @@ import axios from 'axios';
 axios.defaults.baseURL = 'https://api.themoviedb.org/3/';
 const API_KEY = 'c16c869f875a641f65f14ffc799280d5';
 
-//const TOKEN =
-//  'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjMTZjODY5Zjg3NWE2NDFmNjVmMTRmZmM3OTkyODBkNSIsInN1YiI6IjY1MDM2NzA3ZWZlYTdhMDBmZDFjYzgxOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.BWX9F6WrGsQsNt4hLDRCgOg6i1oBc61A6s_j5oAs_LQ';
-//const options = {
-//  headers: {
-//    Authorization: `Bearer ${TOKEN}`,
-//  },
-//};
-
 export const fetchHomePage = async signal => {
   const { data } = await axios.get('trending/movie/day', {
     signal,

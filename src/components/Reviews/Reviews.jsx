@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchSearchReviews } from 'services/api';
 import { ReviewsWrapper, InfoBlock, InfoWrapper } from './Reviews.styled';
-import {Loader} from 'components/Loader/Loader';
+import { Loader } from 'components/Loader/Loader';
 import { animateScroll } from 'react-scroll';
 
 const Reviews = () => {
@@ -18,14 +18,15 @@ const Reviews = () => {
         abortCtrl.current.abort();
       }
       abortCtrl.current = new AbortController();
+
       try {
         setIsLoading(true);
         setIsError(null);
-        const results = await fetchSearchReviews(
+        const reviewInfo = await fetchSearchReviews(
           movieId,
           abortCtrl.current.signal
         );
-        setReviews(results);
+        setReviews(reviewInfo);
       } catch (error) {
         if (error.code !== 'ERR_CANCELED') {
           setIsError(error.message);
@@ -36,9 +37,11 @@ const Reviews = () => {
     };
     getReviews();
   }, [movieId]);
+
   if (reviews) {
     animateScroll.scrollMore(400);
   }
+
   return (
     <>
       {isLoading && <Loader />}
@@ -56,9 +59,8 @@ const Reviews = () => {
         </ReviewsWrapper>
       )}
       {!isLoading && reviews.length === 0 && (
-        <div>Sorry, there are no reviews for this movie yet.</div>
+        <div>We dont have ani reviews for this movie.</div>
       )}
-      ;
     </>
   );
 };

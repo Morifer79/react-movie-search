@@ -10,16 +10,17 @@ export const SearchBar = styled.form`
 export const SearchFormInput = styled.input`
   margin: 20px 0 0 40px;
   padding: ${p => p.theme.spacing(5)};
+
   border-radius: ${p => p.theme.radii.sm};
   border: solid 1px ${p => p.theme.colors.bernred};
   background-color: inherit;
   outline: none;
   color: ${p => p.theme.colors.white};
   width: 100%;
+  height: 35px;
   max-width: 450px;
   font-size: 16px;
-  height: 35px;
-  transition: box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: box-shadow 400ms cubic-bezier(0.4, 0, 0.2, 1);
 
   &:hover,
   &:focus {

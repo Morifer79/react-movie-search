@@ -2,7 +2,8 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 export const MovieList = styled.ul`
-  margin: 15px 0 0 40px;
+  margin-top: ${p => p.theme.spacing(7.5)};
+  margin-left: ${p => p.theme.spacing(20)};
 `;
 
 export const MovieItem = styled.li`
@@ -13,10 +14,9 @@ export const MovieItem = styled.li`
 
 export const MovieLink = styled(Link)`
   font-family: 'Bad Script';
-  text-decoration: none;
   font-weight: 500;
-  color: ${p => p.theme.colors.white};
   font-size: 16px;
+  color: ${p => p.theme.colors.white};
   transition: color 300ms linear;
 
   &:hover {

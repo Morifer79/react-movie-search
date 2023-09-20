@@ -1,11 +1,16 @@
 import { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchSearchCast } from 'services/api';
-import { CastItem, CastList, CastWrapper } from './Cast.styled';
+import {
+  ActorsImg,
+  CastItem,
+  CastList,
+  CastWrapper,
+  WikiLink,
+} from './Cast.styled';
 import { Loader } from 'components/Loader/Loader';
 import { animateScroll } from 'react-scroll';
-//import { toast } from 'react-toastify';
-import person from '../../images/person.jpg';
+import default_person from '../../images/default_person.jpg';
 
 const IMAGE_URL = 'https://image.tmdb.org/t/p/w500';
 
@@ -22,6 +27,7 @@ const Cast = () => {
         abortCtrl.current.abort();
       }
       abortCtrl.current = new AbortController();
+
       try {
         setIsLoading(true);
         setIsError(null);
@@ -54,20 +60,28 @@ const Cast = () => {
           {cast.map(({ id, profile_path, name, character }) => {
             return (
               <CastItem key={id}>
-                <img
-                  src={profile_path ? IMAGE_URL + profile_path : person}
-                  alt={name}
-                  width={200}
-                  height={300}
-                />
-                <p>
-                  <b>Name: </b>
-                  {name}
-                </p>
-                <p>
-                  <b>Character: </b>
-                  {character}
-                </p>
+                <WikiLink
+                  href={`https://ru.wikipedia.org/wiki/${name}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <ActorsImg
+                    src={
+                      profile_path ? IMAGE_URL + profile_path : default_person
+                    }
+                    alt={name}
+                    width={200}
+                    height={300}
+                  />
+                  <p>
+                    <b>Name: </b>
+                    {name}
+                  </p>
+                  <p>
+                    <b>Character: </b>
+                    {character}
+                  </p>
+                </WikiLink>
               </CastItem>
             );
           })}
