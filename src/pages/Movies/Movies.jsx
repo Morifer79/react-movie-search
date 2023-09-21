@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { Loader } from 'components/Loader/Loader';
 import { fetchSearchMovie } from 'services/api';
 import MoviesList from 'components/MoviesList/MoviesList';
@@ -12,24 +12,24 @@ const Movies = () => {
   const [isError, setIsError] = useState(null);
   const [searchParams] = useSearchParams();
   const query = searchParams.get('query') ?? '';
-  const abortCtrl = useRef();
 
   useEffect(() => {
     if (!query) {
       return;
-    }
+		}
+		const abortController = new AbortController();
     const getMovie = async () => {
-      if (abortCtrl.current) {
-        abortCtrl.current.abort();
+      if (abortController.current) {
+        abortController.current.abort();
       }
-      abortCtrl.current = new AbortController();
+      abortController.current = new AbortController();
 
       try {
         setIsLoading(true);
         setIsError(null);
 
         const { results } = await fetchSearchMovie(query, {
-          signal: abortCtrl.current.signal,
+          signal: abortController.current.signal,
         });
 
         setMovies(results);
@@ -39,7 +39,10 @@ const Movies = () => {
         setIsLoading(false);
       }
     };
-    getMovie();
+		getMovie();
+		return () => {
+      abortController.abort();
+    };
   }, [query]);
 
   return (
