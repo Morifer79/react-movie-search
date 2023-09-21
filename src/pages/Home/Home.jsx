@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { fetchHomePage } from '../../services/api';
 import MoviesList from 'components/MoviesList/MoviesList';
 import { Quotation, PulsarTitle } from './Home.styled';
@@ -8,29 +8,28 @@ const Home = () => {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(null);
-  const abortCtrl = useRef();
 
   useEffect(() => {
+    const abortController = new AbortController();
     const getMoviesList = async () => {
-      if (abortCtrl.current) {
-        abortCtrl.current.abort();
-      }
-      abortCtrl.current = new AbortController();
-
       try {
         setIsLoading(true);
         setIsError(null);
-        const trendInfo = await fetchHomePage(abortCtrl.current.signal);
+        const trendInfo = await fetchHomePage({
+          signal: abortController.signal,
+        });
         setMovies(trendInfo);
       } catch (error) {
-        if (error.code !== 'ERR_CANCELED') {
-          setIsError(error.message);
-        }
+        setIsError(error.message);
       } finally {
         setIsLoading(false);
       }
     };
     getMoviesList();
+
+    return () => {
+      abortController.abort();
+    };
   }, []);
 
   return (

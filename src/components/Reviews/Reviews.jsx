@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchSearchReviews } from 'services/api';
 import { ReviewsWrapper, InfoBlock, InfoWrapper } from './Reviews.styled';
@@ -10,32 +10,28 @@ const Reviews = () => {
   const [reviews, setReviews] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-  const abortCtrl = useRef();
 
   useEffect(() => {
+    const abortController = new AbortController();
     const getReviews = async () => {
-      if (abortCtrl.current) {
-        abortCtrl.current.abort();
-      }
-      abortCtrl.current = new AbortController();
-
       try {
         setIsLoading(true);
         setIsError(null);
-        const reviewInfo = await fetchSearchReviews(
-          movieId,
-          abortCtrl.current.signal
-        );
+        const reviewInfo = await fetchSearchReviews(movieId, {
+          signal: abortController.signal,
+        });
         setReviews(reviewInfo);
       } catch (error) {
-        if (error.code !== 'ERR_CANCELED') {
-          setIsError(error.message);
-        }
+        setIsError(error.message);
       } finally {
         setIsLoading(false);
       }
     };
-    getReviews();
+    getReviews(movieId);
+
+    return () => {
+      abortController.abort();
+    };
   }, [movieId]);
 
   if (reviews) {

@@ -26,35 +26,31 @@ const MovieDetails = () => {
   const [movie, setMovie] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(null);
-  const abortCtrl = useRef();
   const location = useLocation();
   const goBack = useRef(location?.state?.from ?? '/');
 
   useEffect(() => {
+    const abortController = new AbortController();
     const getDetail = async () => {
-      if (abortCtrl.current) {
-        abortCtrl.current.abort();
-      }
-      abortCtrl.current = new AbortController();
-
       try {
         setIsLoading(true);
         setIsError(null);
-        const detailsInfo = await fetchSearchDetail(
-          movieId,
-          abortCtrl.current.signal
-        );
+        const detailsInfo = await fetchSearchDetail(movieId, {
+          signal: abortController.signal,
+        });
         setMovie(detailsInfo);
         setIsError(null);
       } catch (error) {
-        if (error.code !== 'ERR_CANCELED') {
-          setIsError(error.message);
-        }
+        setIsError(error.message);
       } finally {
         setIsLoading(false);
       }
     };
     getDetail();
+
+    return () => {
+      abortController.abort();
+    };
   }, [movieId]);
 
   const IMAGE_URL = 'https://image.tmdb.org/t/p/w500/';

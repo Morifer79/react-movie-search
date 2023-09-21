@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchSearchCast } from 'services/api';
 import {
@@ -19,32 +19,27 @@ const Cast = () => {
   const [cast, setCast] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(null);
-  const abortCtrl = useRef();
 
   useEffect(() => {
+    const abortController = new AbortController();
     const getCast = async () => {
-      if (abortCtrl.current) {
-        abortCtrl.current.abort();
-      }
-      abortCtrl.current = new AbortController();
-
       try {
         setIsLoading(true);
         setIsError(null);
-        const castInfo = await fetchSearchCast(
-          movieId,
-          abortCtrl.current.signal
-        );
+        const castInfo = await fetchSearchCast(movieId, {
+          signal: abortController.signal,
+        });
         setCast(castInfo);
       } catch (error) {
-        if (error.code !== 'ERR_CANCELED') {
-          setIsError(error.message);
-        }
+        setIsError(error.message);
       } finally {
         setIsLoading(false);
       }
     };
-    getCast();
+    getCast(movieId);
+    return () => {
+      abortController.abort();
+    };
   }, [movieId]);
 
   if (cast) {

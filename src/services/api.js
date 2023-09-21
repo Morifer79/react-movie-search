@@ -3,9 +3,8 @@ import axios from 'axios';
 axios.defaults.baseURL = 'https://api.themoviedb.org/3/';
 const API_KEY = 'c16c869f875a641f65f14ffc799280d5';
 
-export const fetchHomePage = async signal => {
+export const fetchHomePage = async () => {
   const { data } = await axios.get('trending/movie/day', {
-    signal,
     params: {
       api_key: API_KEY,
       language: 'en-US',
@@ -29,20 +28,18 @@ export const fetchSearchMovie = async (query, signal) => {
   return response.data.results;
 };
 
-export const fetchSearchDetail = async (movieId, signal) => {
-  const { data } = await axios.get(`movie/${movieId}`, {
-    signal,
+export const fetchSearchDetail = async (movieId) => {
+  const response = await axios.get(`movie/${movieId}`, {
     params: {
       api_key: API_KEY,
       language: 'en-US',
     },
   });
-  return data;
+  return response.data;
 };
 
-export const fetchSearchCast = async (movieId, signal) => {
-  const { data } = await axios.get(`movie/${movieId}/credits`, {
-    signal,
+export const fetchSearchCast = async movieId => {
+  const {data} = await axios.get(`movie/${movieId}/credits`, {
     params: {
       api_key: API_KEY,
       language: 'en-US',
@@ -51,14 +48,13 @@ export const fetchSearchCast = async (movieId, signal) => {
   return data.cast;
 };
 
-export const fetchSearchReviews = async (movieId, signal) => {
-  const { data } = await axios.get(`movie/${movieId}/reviews`, {
-    signal,
+export const fetchSearchReviews = async movieId => {
+  const {data} = await axios.get(`movie/${movieId}/reviews`, {
     params: {
       api_key: API_KEY,
       language: 'en-US',
       page: 1,
     },
   });
-  return data.results;
+  return data.results;;
 };
