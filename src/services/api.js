@@ -14,9 +14,8 @@ export const fetchHomePage = async () => {
   return data.results;
 };
 
-export const fetchSearchMovie = async (query, signal) => {
+export const fetchSearchMovie = async query => {
   const response = await axios.get('search/movie', {
-    signal,
     params: {
       api_key: API_KEY,
       language: 'en-US',
@@ -25,10 +24,10 @@ export const fetchSearchMovie = async (query, signal) => {
       page: 1,
     },
   });
-  return response.data.results;
+  return response.data;
 };
 
-export const fetchSearchDetail = async (movieId) => {
+export const fetchSearchDetail = async movieId => {
   const response = await axios.get(`movie/${movieId}`, {
     params: {
       api_key: API_KEY,
@@ -39,7 +38,7 @@ export const fetchSearchDetail = async (movieId) => {
 };
 
 export const fetchSearchCast = async movieId => {
-  const {data} = await axios.get(`movie/${movieId}/credits`, {
+  const { data } = await axios.get(`movie/${movieId}/credits`, {
     params: {
       api_key: API_KEY,
       language: 'en-US',
@@ -49,12 +48,12 @@ export const fetchSearchCast = async movieId => {
 };
 
 export const fetchSearchReviews = async movieId => {
-  const {data} = await axios.get(`movie/${movieId}/reviews`, {
+  const { data } = await axios.get(`movie/${movieId}/reviews`, {
     params: {
       api_key: API_KEY,
       language: 'en-US',
       page: 1,
     },
   });
-  return data.results;;
+  return data.results;
 };

@@ -43,7 +43,7 @@ const Cast = () => {
   }, [movieId]);
 
   if (cast) {
-    animateScroll.scrollMore(620);
+    animateScroll.scrollMore(640);
   }
 
   return (

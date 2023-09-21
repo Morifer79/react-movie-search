@@ -1,45 +1,30 @@
-import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Formik, ErrorMessage } from 'formik';
 import {
   IconSearch,
-  SearchBtn,
-  SearchFormInput,
   SearchBar,
+  SearchFormInput,
+  SearchBtn,
 } from './SearchForm.styled';
 
-const SearchForm = ({ onQueryChange }) => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const movieName = searchParams.get('query') ?? '';
+const SearchForm = () => {
+  const [, setSearchParams] = useSearchParams();
 
-  useEffect(() => {
-    if (!movieName) return;
-    onQueryChange(movieName);
-  }, [movieName, onQueryChange]);
-
-  const handleSubmit = (values, action) => {
-    const query = values.query;
-    const nextParams = query !== '' ? { query } : {};
-    setSearchParams(nextParams);
-
-    action.resetForm();
+  const handleSubmit = e => {
+    e.preventDefault();
+    const query = e.currentTarget.elements.query.value.trim();
+    if (!query) {
+      setSearchParams({});
+    }
+    setSearchParams({ query: query });
   };
 
   return (
-    <Formik initialValues={{ query: '' }} onSubmit={handleSubmit}>
-      <SearchBar>
-        <SearchFormInput
-          type="text"
-          name="query"
-          autoFocus
-          autoComplete="off"
-        />
-        <ErrorMessage name="name" component="div" />
-        <SearchBtn type="submit">
-          <IconSearch />
-        </SearchBtn>
-      </SearchBar>
-    </Formik>
+    <SearchBar onSubmit={handleSubmit}>
+      <SearchFormInput type="text" name="query" autoFocus autoComplete="off" />
+      <SearchBtn type="submit">
+        <IconSearch />
+      </SearchBtn>
+    </SearchBar>
   );
 };
 

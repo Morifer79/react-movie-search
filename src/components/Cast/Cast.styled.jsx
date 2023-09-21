@@ -1,11 +1,13 @@
 import styled from 'styled-components';
 
 export const CastWrapper = styled.div`
-  padding: 15px 10px;
+  padding-top: ${p => p.theme.spacing(15)};
+  padding-bottom: ${p => p.theme.spacing(15)};
 `;
 
 export const CastList = styled.ul`
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   gap: ${p => p.theme.spacing(10)};
 `;

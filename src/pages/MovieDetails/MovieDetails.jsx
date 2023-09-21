@@ -6,6 +6,7 @@ import { BsCaretLeftFill } from 'react-icons/bs';
 import default_image from '../../images/default_image.png';
 import {
   Card,
+  Hr,
   IconMasks,
   IconScroll,
   Info,
@@ -106,6 +107,7 @@ const MovieDetails = () => {
                 </SubInfoLink>
               </SubInfoList>
             </SubInfoWrapper>
+            <Hr />
           </>
         )}
         <Suspense>

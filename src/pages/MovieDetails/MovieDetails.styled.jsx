@@ -110,7 +110,8 @@ export const InfoList = styled.ul`
 
 export const Item = styled.li`
   p span {
-    padding: 0 5px;
+    padding-left: ${p => p.theme.spacing(2.5)};
+    padding-right: ${p => p.theme.spacing(2.5)};
     margin-left: ${p => p.theme.spacing(5)};
 
     font-weight: 900;
@@ -173,4 +174,9 @@ export const IconScroll = styled(FaScroll)`
   vertical-align: sub;
   height: 20px;
   width: 20px;
+`;
+
+export const Hr = styled.div`
+  border-top: 1px solid ${p => p.theme.colors.bernred};
+  box-shadow: 0 0 13px 3px ${p => p.theme.colors.bernred};
 `;

@@ -1,66 +1,52 @@
-import {useState, useEffect, useRef} from 'react';
-import {Loader} from 'components/Loader/Loader';
-import {fetchSearchMovie} from 'services/api';
+import { useState, useEffect, useRef } from 'react';
+import { Loader } from 'components/Loader/Loader';
+import { fetchSearchMovie } from 'services/api';
 import MoviesList from 'components/MoviesList/MoviesList';
 import SearchForm from 'components/SearchForm/SearchForm';
-import {Quotation} from 'pages/Home/Home.styled';
-
-//import { useSearchParam, useLocation } from 'react-router-dom';
-//import { toast } from 'react-toastify';
-//import 'react-toastify/dist/ReactToastify.css';
-
+import { Quotation } from 'pages/Home/Home.styled';
+import { useSearchParams } from 'react-router-dom';
 
 const Movies = () => {
-	//const location = useLocation();
-	const [movies, setMovies] = useState([]);
-	const [query, setQuery] = useState('');
-  //const [searchParams, setSearchParams] = useSearchParams();
+  const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-	const [isError, setIsError] = useState(null);
-	const abortCtrl = useRef();
-
-  //const query = searchParams.get('query') ?? '';
+  const [isError, setIsError] = useState(null);
+  const [searchParams] = useSearchParams();
+  const query = searchParams.get('query') ?? '';
+  const abortCtrl = useRef();
 
   useEffect(() => {
-    if (query === '') {
+    if (!query) {
       return;
     }
-
     const getMovie = async () => {
       if (abortCtrl.current) {
         abortCtrl.current.abort();
       }
-
       abortCtrl.current = new AbortController();
+
       try {
         setIsLoading(true);
         setIsError(null);
 
-        const movies = await fetchSearchMovie(query, abortCtrl.current.signal);
-        setMovies(movies);
-        setIsError(null);
+        const { results } = await fetchSearchMovie(query, {
+          signal: abortCtrl.current.signal,
+        });
+
+        setMovies(results);
       } catch (error) {
-        if (error.code !== 'ERR_CANCELED') {
-          setIsError(error.message);
-        }
+        setIsError(error.message);
       } finally {
         setIsLoading(false);
       }
     };
     getMovie();
   }, [query]);
-	
-	const onQueryChange = searchQuery => {
-    if (searchQuery === query) {
-      return;
-    }
-    setQuery(searchQuery);
-    setIsError(null);
-  };
 
   return (
     <>
-      <SearchForm onQueryChange={onQueryChange} />
+      {isLoading && <Loader />}
+      {isError && !isLoading && <p>No one movie</p>}
+      <SearchForm />
       <Quotation>
         <strong>
           Life
@@ -69,9 +55,7 @@ const Movies = () => {
         <br />
         <span>Michelle Nostradamus</span>
       </Quotation>
-      {isLoading && <Loader />}
-      {isError && <p>{isError}</p>}
-      {!isLoading && movies.length > 0 && <MoviesList movies={movies} />}
+      {movies && <MoviesList movies={movies} />}
     </>
   );
 };
