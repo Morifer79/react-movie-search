@@ -44,6 +44,11 @@ export const Thumb = styled.div`
   img {
     border: 1px solid ${p => p.theme.colors.bernred};
     border-radius: ${p => p.theme.radii.md};
+		transition: 1s;
+    transform: scale(1);
+    &:hover {
+      transform: scale(1.02);
+    }
   }
 `;
 

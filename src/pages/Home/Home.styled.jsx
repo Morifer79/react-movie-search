@@ -27,18 +27,22 @@ export const PulsarTitle = styled.h1`
 `;
 
 export const Quotation = styled.p`
-  padding: ${p => p.theme.spacing(10)};
+  display: none;
+  @media screen and (min-width: 768px) {
+    display: block;
+    padding: ${p => p.theme.spacing(10)};
 
-  font-family: 'Bad Script';
-  font-size: 36px;
-  text-align: center;
-  color: ${p => p.theme.colors.bernred};
-  position: absolute;
-  top: 40%;
-  right: 10%;
+    font-family: 'Bad Script';
+    font-size: 36px;
+    text-align: center;
+    color: ${p => p.theme.colors.bernred};
+    position: absolute;
+    top: 40%;
+    right: 10%;
 
-  span {
-    font-size: 28px;
-    color: ${p => p.theme.colors.white};
+    span {
+      font-size: 28px;
+      color: ${p => p.theme.colors.white};
+    }
   }
 `;
