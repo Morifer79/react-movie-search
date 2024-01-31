@@ -11,6 +11,7 @@ This project was created using [Create React App](https://github.com/facebook/cr
 ※ Working with API (TOP category loading).  
 ※ Clicking on the actor's map will take you to his Wikipedia page.    
 ※ Smooth scrolling of actor cards has been implemented.  
+※ Themization and GlobalStyles were used .  
 
 ## 𝕋𝕖𝕔𝕙𝕟𝕠𝕝𝕠𝕘𝕚𝕖𝕤 ᎓  
 
@@ -26,6 +27,7 @@ This project was created using [Create React App](https://github.com/facebook/cr
 ※ react-icons: to use icons in React.  
 ※ react-loader-spinner: to display standby mode.       
 ※ react-scroll: for a smooth twist.           
+※ react-router-dom: to navigate between different parts of the web application.           
 
 ## 𝕀𝕟𝕤𝕥𝕒𝕝𝕝𝕒𝕥𝕚𝕠𝕟 ᎓  
 
