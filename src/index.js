@@ -21,7 +21,7 @@ const theme = {
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter basename="/goit-react-hw-05-movies">
+    <BrowserRouter basename="/react-movie-search">
       <ThemeProvider theme={theme}>
         <App />
       </ThemeProvider>
